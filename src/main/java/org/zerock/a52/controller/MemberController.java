@@ -21,6 +21,7 @@ public class MemberController {
         log.info("GET | signup");
     }
 
+    //@PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/mypage")
     public void mypage(){

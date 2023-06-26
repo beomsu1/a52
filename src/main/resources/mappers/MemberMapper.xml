@@ -11,6 +11,7 @@
 <!-- id property가 기준이 됨 -->
 <id property="email" column="email"/>
 <result property="mname" column="mname"/>
+<result property="mpw" column="mpw"/>
 <collection property="rolenames" resultMap="authMap"/>
 </resultMap>
 

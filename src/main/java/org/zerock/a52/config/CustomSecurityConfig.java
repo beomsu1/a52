@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.zerock.a52.security.handler.CustomAccessDeniedHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -45,6 +46,9 @@ public class CustomSecurityConfig {
         config.loginPage("/member/signin"); 
         // 앞으로 로그인은 다 이경로를 쓸 거야! 라는 뜻
     });
+
+    http.exceptionHandling(config ->
+    config.accessDeniedHandler(new CustomAccessDeniedHandler()));
 
     // 로그인 유지
     http.rememberMe(config ->{

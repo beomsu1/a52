@@ -49,6 +49,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 
         MemberReadDTO readDTO = memberMapper.selectOne(username);
 
+        log.info(readDTO);
+
         MemberDTO memberDTO = 
         new MemberDTO(
         username, 
@@ -57,7 +59,6 @@ public class CustomUserDetailsService implements UserDetailsService{
         readDTO.getRolenames()
          );
 
-        memberDTO.setMname("범수");
         return memberDTO;
 
     }
