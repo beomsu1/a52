@@ -2,16 +2,18 @@ package org.zerock.a52.dto;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.Data;
 
 @Data
-public class MemberDTO extends User{
+public class MemberDTO extends User implements OAuth2User{
 
     private String mname;
     
@@ -24,6 +26,19 @@ public class MemberDTO extends User{
 
         this.mname = mname;
 
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+    
+        return null;
+    }
+
+
+    @Override
+    public String getName() {
+    
+        return this.getUsername();
     }
 
     // 이 생성자는 의미가 없음

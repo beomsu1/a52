@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.zerock.a52.security.CustomOAuth2UserService;
 import org.zerock.a52.security.handler.CustomAccessDeniedHandler;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class CustomSecurityConfig {
 
     // 의존성 주입
     private final DataSource dataSource;
+
+    private final CustomOAuth2UserService auth2UserService;
 
     // Spring Security 구성에서 사용되며, 사용자의 로그인 기억 기능을 지원하기 위해 필요한 객체
     @Bean
@@ -40,8 +43,7 @@ public class CustomSecurityConfig {
 
     // http.formLogin(Customizer.withDefaults()); 
 
-
-    // //login 경로 로그인 페이지 띄우기
+    //login 경로 로그인 페이지 띄우기
     http.formLogin(config ->{
         config.loginPage("/member/signin"); 
         // 앞으로 로그인은 다 이경로를 쓸 거야! 라는 뜻
@@ -64,6 +66,10 @@ public class CustomSecurityConfig {
     // csrf 토큰 비활성화
     http.csrf(config ->{
         config.disable();
+    });
+
+    http.oauth2Login(config -> {
+        config.loginPage("/member/signin");
     });
 
     return http.build();
