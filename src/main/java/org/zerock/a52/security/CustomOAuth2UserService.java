@@ -45,7 +45,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService{
     log.info(email);
     log.info("===============================");
 
-    // 
+    
+    
+    // DB에 해당 이메일 사용자가 있다면
+
+
+    // 아니라면 비밀번호가 없고 이름도 카카오 사용자가 아님
     MemberDTO memberDTO = new MemberDTO(email, "", "카카오 사용자", List.of("USER"));
 
     return memberDTO;

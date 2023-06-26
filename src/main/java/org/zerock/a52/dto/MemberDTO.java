@@ -16,6 +16,8 @@ import lombok.Data;
 public class MemberDTO extends User implements OAuth2User{
 
     private String mname;
+    private String email;
+    private String pw;
     
     // 생성자 만들기 /항상 부모클래스의 생성자를 호출해야함
     public MemberDTO(String email, String mpw, String mname, List<String> roleNames){
@@ -25,6 +27,8 @@ public class MemberDTO extends User implements OAuth2User{
         // username 대신에 email
 
         this.mname = mname;
+        this.email = email;
+        this.pw = pw;
 
     }
 
@@ -38,7 +42,7 @@ public class MemberDTO extends User implements OAuth2User{
     @Override
     public String getName() {
     
-        return this.getUsername();
+        return this.email;
     }
 
     // 이 생성자는 의미가 없음

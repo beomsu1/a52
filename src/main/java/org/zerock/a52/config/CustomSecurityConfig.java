@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.zerock.a52.security.CustomOAuth2UserService;
 import org.zerock.a52.security.handler.CustomAccessDeniedHandler;
+import org.zerock.a52.security.handler.CustomOAuthSuccessHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -70,6 +71,7 @@ public class CustomSecurityConfig {
 
     http.oauth2Login(config -> {
         config.loginPage("/member/signin");
+        config.successHandler(new CustomOAuthSuccessHandler());
     });
 
     return http.build();
