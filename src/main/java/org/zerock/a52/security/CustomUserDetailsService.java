@@ -11,12 +11,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.zerock.a52.dto.MemberDTO;
+import org.zerock.a52.dto.MemberReadDTO;
+import org.zerock.a52.mappers.MemberMapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService{
+
+    private final MemberMapper memberMapper;
     
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -41,13 +47,15 @@ public class CustomUserDetailsService implements UserDetailsService{
 
         log.info("loadUserByUsername: " + username );
 
+        MemberReadDTO readDTO = memberMapper.selectOne(username);
+
         MemberDTO memberDTO = 
-        new MemberDTO(username, 
-        passwordEncoder.encode("1111"), 
-        "범수",
-        List.of(("USER")
-        )
-        );
+        new MemberDTO(
+        username, 
+        readDTO.getMpw(),
+        readDTO.getMname(),
+        readDTO.getRolenames()
+         );
 
         memberDTO.setMname("범수");
         return memberDTO;
